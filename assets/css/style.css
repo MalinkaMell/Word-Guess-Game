@@ -1,0 +1,13 @@
+body {
+    background: url(/assets/images/bg.jpg) #ffffff top center no-repeat;
+    background-size: cover;
+}
+
+.merenda {
+    font-family: 'Merienda One', cursive;
+
+}
+
+.green {
+    color: green;
+}
