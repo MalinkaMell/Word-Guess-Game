@@ -1,9 +1,21 @@
 
 //creating array of words(objects)
 let worldToGuess = [
-    { word_to_guess: "lasagna", imgURL: "lasagna.jpg", helpImg: "lasagna_sheets.jpg", description: "This dish is made of stacked layers of pasta alternated with sauces and ingredients such as meats, vegetables and cheese"},
-    { word_to_guess: "parmigiana", imgURL: "parmigiana.jpg", helpImg: "melanzana.jpg", description: "This dish is made with a shallow or deep-fried sliced eggplant filling, layered with cheese and tomato sauce, then baked"},
-    { word_to_guess: "carbonara", imgURL: "carbonara.jpg", helpImg: "pancetta.jpg", description: "Italian pasta dish from Rome made with egg, hard cheese, guanciale, and black pepper"}
+    { 
+        word_to_guess: "lasagna", 
+        imgURL: "lasagna.jpg", 
+        helpImg: "lasagna_sheets.jpg", 
+        description: "This dish is made of stacked layers of pasta alternated with sauces and ingredients such as meats, vegetables and cheese"},
+    { 
+        word_to_guess: "parmigiana", 
+        imgURL: "parmigiana.jpg", 
+        helpImg: "melanzana.jpg", 
+        description: "This dish is made with a shallow or deep-fried sliced eggplant filling, layered with cheese and tomato sauce, then baked"},
+    { 
+        word_to_guess: "carbonara", 
+        imgURL: "carbonara.jpg", 
+        helpImg: "pancetta.jpg", 
+        description: "Italian pasta dish from Rome made with egg, hard cheese, guanciale, and black pepper"}
 ];
 
 //randomlly choosing the word to guess from array of objects
@@ -14,32 +26,34 @@ let displayeddWord = worldToGuess[randomWord].word_to_guess;
 
 //creating an array of keys pressed by user and storing it in a new array 
 let userGuessedLetters = [];
+//creating new array matching number of carachters in the word to guess
 let hiddenWordMatch = [];
-
+//counting clicks
 let countClicks = 0;
-
+//counting wins
+let wins = 0;
+//
 for (let j = 0; j < displayeddWord.length; j++) {
     hiddenWordMatch.push("_");
 }
 
 function playMusic() {
- 
     let audio = new Audio("./assets/music/tarantella.mp3");
     audio.play();
   }
 
 function endGame() {
-    for (let i = 0; i < hiddenWordMatch.length; i++) {
+    //for (let i = 0; i < hiddenWordMatch.length; i++) {
         if (hiddenWordMatch.indexOf("_") === -1) {
             console.log("the word is complete!");
             playMusic();
             document.getElementById("image").src = "./assets/images/" + worldToGuess[randomWord].imgURL;
+            wins++;
+        return;
         }
-    }
+    //}
+    
 }
-
-
-
 
 
 document.onkeyup = function (event) {
@@ -47,10 +61,10 @@ document.onkeyup = function (event) {
     //countUserClicks();
     if (countClicks < 10) {
         
-        var userGuess = event.key.toLowerCase(); // Determines which key was pressed.
+        let userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 
         
-        var letterIsIn = userGuessedLetters.indexOf(userGuess);//controlling if user already pressed that key, adding a new key to array if it hasn't been pressed yet
+        let letterIsIn = userGuessedLetters.indexOf(userGuess); //controlling if user already pressed that key, adding a new key to array if it hasn't been pressed yet
 
         if (letterIsIn === -1) {
             userGuessedLetters.push(userGuess);
@@ -83,6 +97,7 @@ document.getElementById("image").src = "./assets/images/" + worldToGuess[randomW
 document.getElementById("description").innerHTML = worldToGuess[randomWord].description;
 endGame();
 document.getElementById("guesses").innerHTML = countClicks;
+document.getElementById("wins").innerHTML = wins;
 }
 
 
