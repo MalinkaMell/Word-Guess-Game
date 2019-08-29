@@ -56,7 +56,7 @@ function endGame() {
         document.getElementById("description_next").innerHTML = "Delizioso!!!<br><small>Press any key to restart</small>";
         questionIndex += 1;
         console.log("after " + questionIndex);
-        startGame();
+
     }
 
 }
@@ -74,11 +74,10 @@ let verifyLetter = function (x, s) {
     }
 }
 
-function startGame() {
-    document.onkeyup = function (event) {
+document.onkeyup = function (event) {
 
-        if (countClicks < 10) {
-        
+    if (countClicks < 10) {
+
         let userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 
         verifyLetter(userGuessedLetters, userGuess);
@@ -98,17 +97,16 @@ function startGame() {
     }
     else {
         document.getElementById("description").innerHTML = "Try again!";
-            return;
+        return;
     }
 
-        document.getElementById("test").innerHTML = hiddenWordMatch.join(" ");
-        document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].helpImg;
-        document.getElementById("description").innerHTML = worldToGuess[questionIndex].description;
-        document.getElementById("guesses").innerHTML = countClicks;
-        document.getElementById("wins").innerHTML = wins;
-        endGame();
-    }
-
+    document.getElementById("test").innerHTML = hiddenWordMatch.join(" ");
+    document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].helpImg;
+    document.getElementById("description").innerHTML = worldToGuess[questionIndex].description;
+    document.getElementById("guesses").innerHTML = countClicks;
+    document.getElementById("wins").innerHTML = wins;
+    endGame();
 }
-startGame();
+
+
 document.getElementById("test").innerHTML = hiddenWordMatch.join(" ");
