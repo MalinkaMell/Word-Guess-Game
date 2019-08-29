@@ -5,19 +5,36 @@ let worldToGuess = [
         word_to_guess: "lasagna",
         imgURL: "lasagna.jpg",
         helpImg: "lasagna_sheets.jpg",
-        description: "This dish is made of stacked layers of pasta alternated with sauces and ingredients such as meats, vegetables and cheese"
+        description: "This dish is made of stacked layers of pasta alternated with sauces and ingredients such as meats, vegetables and cheese",
+        didntGuess: "It was Lasagna!<br><small>Press any key to continue</small>"
     },
     {
         word_to_guess: "parmigiana",
         imgURL: "parmigiana.jpg",
         helpImg: "melanzana.jpg",
-        description: "This dish is made with a shallow or deep-fried sliced eggplant filling, layered with cheese and tomato sauce, then baked"
+        description: "This dish is made with a shallow or deep-fried sliced eggplant filling, layered with cheese and tomato sauce, then baked",
+        didntGuess: "It was Parmigiana!<br><small>Press any key to continue</small>"
     },
     {
         word_to_guess: "carbonara",
         imgURL: "carbonara.jpg",
         helpImg: "pancetta.jpg",
-        description: "Italian pasta dish from Rome made with egg, hard cheese, guanciale, and black pepper"
+        description: "Italian pasta dish from Rome made with egg, hard cheese, guanciale, and black pepper",
+        didntGuess: "It was Carbonara!<br><small>Press any key to continue</small>"
+    },
+    {
+        word_to_guess: "polenta",
+        imgURL: "polenta.jpg",
+        helpImg: "polenta-cruda.jpg",
+        description: "This dish is made of boiled cornmeal that was historically made from other grains. It may be served as a hot porridge, or it may be allowed to cool and solidify into a loaf that can be baked, fried, or grilled",
+        didntGuess: "It was Polenta!<br><small>Press any key to continue</small>"
+    },
+    {
+        word_to_guess: "tortellini",
+        imgURL: "tortellini.jpg",
+        helpImg: "tortellini-help.jpg",
+        description: "This dish is originally from the Italian region of Emilia, consist of circle of pasta are usually stuffed with a mix of meat, Parmigiano Reggiano cheese, egg and nutmeg",
+        didntGuess: "It was Tortellini!<br><small>Press any key to continue</small>"
     }
 ];
 
@@ -37,45 +54,89 @@ function playMusic() {
     audio.play();
 }
 
+function playWonSound() {
+    let audio = new Audio("./assets/music/success.mp3");
+    audio.play();
+}
+
+function playOverSound() {
+    let audio = new Audio("./assets/music/over.mp3");
+    audio.play();
+}
+
 function endGame() {
+    if (questionIndex === worldToGuess.length) {
+        /* 
+                let buttonRestart = document.createElement("button");
+                buttonRestart.setAttribute("href") = location.reload(true); */
+        document.getElementById("description").innerHTML = "Game over! Thanks for playing!";
+        //  document.getElementById("description").appendChild(buttonRestart)
+        return;
+
+
+    }
+
     if (hiddenWordMatch.indexOf("_") === -1) {
         document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].imgURL;
-
         stopCount = countClicks;
         countClicks = 10;
         wins++;
         document.getElementById("wins").innerHTML = wins;
-
         questionIndex += 1;
-        playMusic();
-        //console.log(wins)
+        playWonSound();
         stopCount = countClicks;
         countClicks = 10;
-        document.getElementById("guesses_div").style.display = "none";
-        document.getElementById("guesses_used_div").style.display = "block";
-        document.getElementById("description").style.display = "none";
-        document.getElementById("description_next").style.display = "block";
         document.getElementById("guesses_used").innerHTML = stopCount;
-        document.getElementById("description_next").innerHTML = "Delizioso!!!<br><small>Press any key to restart</small>";
+        document.getElementById("description").innerHTML = "Delizioso!!!<br><small>Press any key to continue</small>";
         //questionIndex += 1;
         //console.log("after " + questionIndex); 
-
+        console.log(countClicks);
         startGame();
     }
 
+    if (hiddenWordMatch.indexOf("_") === -1 || countClicks == 10) {
+        if (questionIndex === worldToGuess.length) {
+
+            let buttonRestart = document.createElement("a");
+            buttonRestart.setAttribute("class", "btn btn-secondary btn-lg mt-1");
+            buttonRestart.innerHTML = "Restart the game";
+            buttonRestart.setAttribute("href", "index.html");
+            document.getElementById("description").innerHTML = "Game over! Thanks for playing!<br>";
+            document.getElementById("description").appendChild(buttonRestart)
+
+        }
+        else {
+            document.getElementById("description").innerHTML = worldToGuess[questionIndex].didntGuess;
+            console.log(countClicks);
+            playOverSound();
+            console.log(worldToGuess[questionIndex].didntGuess);
+            document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].imgURL;
+            questionIndex += 1;
+
+            
+
+            startGame();
+        }
+    }
+
+
 }
 function startGame() {
-    countClicks = 0;
-    displayeddWord = worldToGuess[questionIndex].word_to_guess;
-    console.log(displayeddWord);
-    hiddenWordMatch = [];
-    for (let j = 0; j < displayeddWord.length; j++) {
-        hiddenWordMatch.push("_");
+
+
+    if (questionIndex !== worldToGuess.length) {
+      
+        countClicks = 0;
+        displayeddWord = worldToGuess[questionIndex].word_to_guess;
+        hiddenWordMatch = [];
+        for (let j = 0; j < displayeddWord.length; j++) {
+            hiddenWordMatch.push("_");
+        }
+        userGuessedLetters = [];
+       
+
+
     }
-    // 
-    console.log(hiddenWordMatch)
-    userGuessedLetters = [];
-    console.log(userGuessedLetters)
 
 
 }
@@ -91,8 +152,9 @@ let verifyLetter = function (x, s) {
         console.log("not adding!");
     }
 }
-
+//playMusic();
 document.onkeyup = function (event) {
+
     if (countClicks < 10) {
 
         let userGuess = event.key.toLowerCase(); // Determines which key was pressed.
@@ -112,17 +174,22 @@ document.onkeyup = function (event) {
 
 
     }
-    /* else {
-        document.getElementById("description").innerHTML = "Try again!";
+    else {
 
-       
-    } */
-    document.getElementById("letters").innerHTML = userGuessedLetters + ", ";
-    document.getElementById("test").innerHTML = hiddenWordMatch.join(" ");
-    document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].helpImg;
-    document.getElementById("description").innerHTML = worldToGuess[questionIndex].description;
-    document.getElementById("guesses").innerHTML = countClicks;
-    endGame();
+        endGame();
+
+    }
+
+    if (questionIndex !== worldToGuess.length) {
+
+    
+        document.getElementById("letters").innerHTML = userGuessedLetters + ", ";
+        document.getElementById("test").innerHTML = hiddenWordMatch.join(" ");
+        document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].helpImg;
+        document.getElementById("description").innerHTML = worldToGuess[questionIndex].description;
+        document.getElementById("guesses").innerHTML = countClicks;
+        endGame();
+    }
 }
 
 
