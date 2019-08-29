@@ -66,14 +66,12 @@ function playOverSound() {
 
 function endGame() {
     if (questionIndex === worldToGuess.length) {
-        /* 
-                let buttonRestart = document.createElement("button");
-                buttonRestart.setAttribute("href") = location.reload(true); */
-        document.getElementById("description").innerHTML = "Game over! Thanks for playing!";
-        //  document.getElementById("description").appendChild(buttonRestart)
-        return;
-
-
+        let buttonRestart = document.createElement("a");
+            buttonRestart.setAttribute("class", "btn btn-success btn-lg mt-1");
+            buttonRestart.innerHTML = "Restart the game";
+            buttonRestart.setAttribute("href", "index.html");
+            document.getElementById("description").innerHTML = "Game over! Thanks for playing!<br>";
+            document.getElementById("description").appendChild(buttonRestart);
     }
 
     if (hiddenWordMatch.indexOf("_") === -1) {
@@ -96,13 +94,13 @@ function endGame() {
 
     if (hiddenWordMatch.indexOf("_") === -1 || countClicks == 10) {
         if (questionIndex === worldToGuess.length) {
-
             let buttonRestart = document.createElement("a");
-            buttonRestart.setAttribute("class", "btn btn-secondary btn-lg mt-1");
+            buttonRestart.setAttribute("class", "btn btn-success btn-lg mt-1");
             buttonRestart.innerHTML = "Restart the game";
             buttonRestart.setAttribute("href", "index.html");
             document.getElementById("description").innerHTML = "Game over! Thanks for playing!<br>";
-            document.getElementById("description").appendChild(buttonRestart)
+            document.getElementById("description").appendChild(buttonRestart);
+            return;
 
         }
         else {
@@ -112,9 +110,6 @@ function endGame() {
             console.log(worldToGuess[questionIndex].didntGuess);
             document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex].imgURL;
             questionIndex += 1;
-
-            
-
             startGame();
         }
     }
@@ -125,7 +120,6 @@ function startGame() {
 
 
     if (questionIndex !== worldToGuess.length) {
-      
         countClicks = 0;
         displayeddWord = worldToGuess[questionIndex].word_to_guess;
         hiddenWordMatch = [];
@@ -133,9 +127,6 @@ function startGame() {
             hiddenWordMatch.push("_");
         }
         userGuessedLetters = [];
-       
-
-
     }
 
 
@@ -160,8 +151,6 @@ document.onkeyup = function (event) {
         let userGuess = event.key.toLowerCase(); // Determines which key was pressed.
 
         verifyLetter(userGuessedLetters, userGuess);
-
-
 
         //checking if the letters guessed by user is present in displayed word
 
