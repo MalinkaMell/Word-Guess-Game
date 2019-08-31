@@ -9,5 +9,6 @@ body {
 }
 
 .description_div {
-    height: 50px;;
+    min-height: 90px;;
 }
+
