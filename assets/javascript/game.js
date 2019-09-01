@@ -66,12 +66,10 @@ function playOverSound() {
     let audio = new Audio("./assets/music/over.mp3");
     audio.play();
 }
-
+//fun with functions? :D
 function pressEnter() {
     let pressEnter = document.createElement("span");
-    //pressEnter.setAttribute("class", "btn btn-success btn-lg mt-1");
     pressEnter.innerHTML = "<small>Press \"ENTER\" to continue</small>";
-    //pressEnter.setAttribute("href", "index.html");
     document.getElementById("description").appendChild(pressEnter);
     
 }
@@ -94,7 +92,7 @@ function endGame() {
             buttonRestartFunction(); // adding restart button
             //shownig the right word
             document.getElementById("description").innerHTML =
-                "That's right!<br><h2>" + worldToGuess[questionIndex - 1].word_to_guess + "</h2>";
+                "<h3>That's right! " + worldToGuess[questionIndex - 1].word_to_guess.toUpperCase() + "</h3>";
             //showing image
             document.getElementById("image").src = "./assets/images/" + worldToGuess[questionIndex - 1].imgURL;
             waitToStartGame = true; // preventing keys other than enter
@@ -119,7 +117,8 @@ function endGame() {
         playWonSound(); // playing victory sound
         document.getElementById("guesses_used").innerHTML = stopCount; //printing out used guesses
         document.getElementById("description").innerHTML =
-            "That's right!<br><h2>" + worldToGuess[questionIndex - 1].word_to_guess + "</h2>"; //printing the whole word
+            "<h3>That's right! " + worldToGuess[questionIndex - 1].word_to_guess.toUpperCase() + "!</h3>"; //printing the whole word
+            pressEnter()
         waitToStartGame = true; // preventing keys other than enter
         startGame(); //moving to the next question using startGame() function
         return; // just to make sure i am exiting this
