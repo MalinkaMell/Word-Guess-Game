@@ -71,7 +71,7 @@ function pressEnter() {
     let pressEnter = document.createElement("span");
     pressEnter.innerHTML = "<small>Press \"ENTER\" to continue</small>";
     document.getElementById("description").appendChild(pressEnter);
-    
+
 }
 
 //create restart game button
@@ -118,7 +118,7 @@ function endGame() {
         document.getElementById("guesses_used").innerHTML = stopCount; //printing out used guesses
         document.getElementById("description").innerHTML =
             "<h3>That's right! " + worldToGuess[questionIndex - 1].word_to_guess.toUpperCase() + "!</h3>"; //printing the whole word
-            pressEnter()
+        pressEnter()
         waitToStartGame = true; // preventing keys other than enter
         startGame(); //moving to the next question using startGame() function
         return; // just to make sure i am exiting this
@@ -163,14 +163,15 @@ let verifyLetter = function (x, s) {
     let letterIsIn = x.indexOf(s); //controlling if user already pressed that key, 
     //adding a new key to array if it hasn't been pressed yet
     if (letterIsIn === -1) {
-        x.push(s); 
+        x.push(s);
         countClicks++; //incrementing clicks
     }
     else {
         console.log("not adding!");
     }
 }
-//playMusic();
+
+playMusic();
 
 
 let letters = /^[A-Za-z]/; //allowing only letters to be pressed
