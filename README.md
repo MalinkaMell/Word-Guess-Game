@@ -4,7 +4,7 @@
 
 In this assignment, you'll create one of two possible computer games: Word Guess or Psychic. These apps will run in the browser, and feature dynamically updated HTML and CSS powered by your JavaScript code.
 
-[Project demo] (https://malinkamell.github.io/Word-Guess-Game/)
+[Project demo](https://malinkamell.github.io/Word-Guess-Game/)
 
 ### Instructions
 
@@ -30,4 +30,4 @@ In this assignment, you'll create one of two possible computer games: Word Guess
 
 9. After the user wins/loses the game should automatically choose another word and make the user play it.
 
-_Made for University of Arizona Coding Bootcamp, Week-3, August 2019 
+_Made for University of Arizona Coding Bootcamp, Week-3, August 2019_
