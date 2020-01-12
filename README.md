@@ -34,7 +34,7 @@
 
 ---
 
-[Playable Demo](https://malinkamell.github.io/Star-Wars-RPG-Game/)
+[Playable Demo](https://malinkamell.github.io/Word-Guess-Game/)
 
 ---
 
